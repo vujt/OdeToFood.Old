@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OdeToFood.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -10,14 +11,26 @@ namespace OdeToFood.Controllers
     {
         public ActionResult Index()
         {
+            var controller = RouteData.Values["controller"];
+            var action = RouteData.Values["action"];
+            var id = RouteData.Values["id"];
+
+            var message = string.Format("{0}::{1} {2}", controller, action, id);
+
+            ViewBag.Message = message;
+
             return View();
         }
 
         public ActionResult About()
         {
-            ViewBag.Message = "Your application description page.";
+            var model = new AboutModel();
 
-            return View();
+            ViewBag.Message = "Your Ode to Food application description page.";
+            model.Name = "Johnny";
+            model.Location = "Sacramento";
+
+            return View(model);
         }
 
         public ActionResult Contact()
